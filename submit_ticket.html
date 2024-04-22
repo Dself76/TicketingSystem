@@ -1,0 +1,37 @@
+<!--    The required attribute on the input fields ensures that the user cannot submit the form without completing these fields.
+    The minlength and maxlength attributes on the title input field enforce the minimum and maximum character requirements.
+    The minlength attribute on the description textarea ensures that a minimum amount of text is entered.
+    The form's novalidate attribute in the <form> tag prevents the browser from performing its own validation, and the script manually checks the form validity on submission.
+    The JavaScript code listens for the submit event and manually triggers validation. If the form is not valid, it prevents form submission and alerts the user..........I will break up the Java Script and put it in 
+another file eventually this is just the template of the project  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Submit a Ticket</h1>
+    <form action="{{ url_for('create_ticket') }}" method="post" novalidate>
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required minlength="3" maxlength="80"><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" required minlength="10"></textarea><br>
+        <button type="submit">Create Ticket</button>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            var form = document.querySelector("form");
+            form.onsubmit = function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    alert("Please fill out the form correctly.");
+                }
+            };
+        });
+    </script>
+</body>
+</html>
